@@ -19,7 +19,7 @@ export const LoginPage = () => {
         item
         className="box-shadow"
         xs={3}
-        sx={{ backgroundColor: 'white', padding: 3, borderRadius: 2 }}>
+        sx={{ backgroundColor: 'white', padding: 3, borderRadius: 2, width: {sm: 450}}}>
         <Typography variant="h5" sx={{ mb: 1 }}>
           Login
         </Typography>
