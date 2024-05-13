@@ -1,6 +1,6 @@
 // import { MailOutline } from '@mui/icons-material';
 import { JournalLayout } from '../layout/JournalLayout';
-import { NothingSelectedView } from '../views';
+import { NoteView, NothingSelectedView } from '../views';
 
 export const JournalPage = () => {
   return (
@@ -11,8 +11,8 @@ export const JournalPage = () => {
         suscipit eaque, labore doloremque quis laboriosam, distinctio excepturi
         nisi officia mollitia dolores.
       </Typography> */}
-      <NothingSelectedView />
-      {/* NoteView */}
+      {/* <NothingSelectedView /> */}
+      <NoteView/>
     </JournalLayout>
   );
 };
