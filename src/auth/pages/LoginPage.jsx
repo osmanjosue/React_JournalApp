@@ -3,8 +3,12 @@ import { Button, Grid, Link, TextField, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../../hooks';
+import { useDispatch } from 'react-redux';
+import { checkingAuthentication, startGoogleSignIn } from '../../store/auth';
 
 export const LoginPage = () => {
+
+  const dispatch = useDispatch();
   
   const { email, password, onInputChange } = useForm({
     email: 'fernando@google.com',
@@ -15,10 +19,13 @@ export const LoginPage = () => {
     event.preventDefault();
 
     console.log({ email, password });
+
+    dispatch( checkingAuthentication());
   };
 
   const onGoogleSignIn = () => {
     console.log('onGoogleSignIn');
+    dispatch( startGoogleSignIn());
   };
 
   return (
