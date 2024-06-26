@@ -12,7 +12,7 @@ export const signInWithGoogle = async () => {
         // console.log(user);
         const { displayName, email, photoURL, uid } = result.user;
 
-        console.log({
+        return ({
             ok: true,
             displayName,
             email,
