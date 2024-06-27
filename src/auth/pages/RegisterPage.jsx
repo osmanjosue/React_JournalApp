@@ -3,14 +3,33 @@ import { Link as RouterLink } from 'react-router-dom';
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../../hooks';
 
-export const RegisterPage = () => {
-  const formData = {
-    email: 'fernando@google.com',
-    password: '123456',
-    displayName: 'Fernando Herrera',
-  };
+const formData = {
+  email: 'fernando@google.com',
+  password: '123456',
+  displayName: 'Fernando Herrera',
+};
 
-  const { displayName, email, password, onInputChange, formState } = useForm(formData);
+const formValidations = {
+  email: [(value) => value.includes('@'), 'El correo debe de tener una @'],
+  password: [
+    (value) => value.length >= 6,
+    'El password debe de tener mas de 6 letras.',
+  ],
+  displayName: [(value) => value.length >= 1, 'El nombre es obligatorio'],
+};
+
+export const RegisterPage = () => {
+  const {
+    displayName,
+    email,
+    password,
+    onInputChange,
+    formState,
+    isFormValid,
+    displayNameValid,
+    emailValid,
+    passwordValid,
+  } = useForm(formData, formValidations);
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -29,6 +48,8 @@ export const RegisterPage = () => {
               name="displayName"
               value={displayName}
               onChange={onInputChange}
+              error={!displayNameValid}
+              helperText="El nombre es obligatorio"
             />
           </Grid>
           <Grid item xs={12} sx={{ mt: 2 }}>
