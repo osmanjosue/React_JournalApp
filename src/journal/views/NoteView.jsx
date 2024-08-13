@@ -5,10 +5,15 @@ import { useForm } from '../../hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useMemo } from 'react';
 import { setActiveNote, startSaveNote } from '../../store';
+import Swal from 'sweetalert2';
 
 export const NoteView = () => {
   const dispatch = useDispatch();
-  const { active: note } = useSelector((state) => state.journal);
+  const {
+    active: note,
+    messageSaved,
+    isSaving,
+  } = useSelector((state) => state.journal);
   const { body, title, date, onInputChange, formState } = useForm(note);
 
   const dateString = useMemo(() => {
@@ -20,8 +25,14 @@ export const NoteView = () => {
     dispatch(setActiveNote(formState));
   }, [formState]);
 
+  useEffect(() => {
+    if (messageSaved.length > 0) {
+      Swal.fire('Nota actualizada', messageSaved, 'success');
+    }
+  }, [messageSaved]);
+
   const onSaveNote = () => {
-    dispatch( startSaveNote());
+    dispatch(startSaveNote());
   };
 
   return (
@@ -38,7 +49,11 @@ export const NoteView = () => {
         </Typography>
       </Grid>
       <Grid>
-        <Button onClick={onSaveNote} color="primary" sx={{ padding: 2 }}>
+        <Button
+          disabled={isSaving}
+          onClick={onSaveNote}
+          color="primary"
+          sx={{ padding: 2 }}>
           <SaveOutlined sx={{ fontSize: 30, mr: 1 }} />
           Guardar
         </Button>
